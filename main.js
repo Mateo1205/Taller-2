@@ -1,5 +1,4 @@
 import { Serie } from "./Serie.js";
-console.log(3333);
 var series1 = [
     new Serie(1, "Breaking Bad", "AMC", 5, "Set and filmed in Albuquerque, New Mexico, the series tells the story of Walter White, a struggling and depressed high school chemistry teacher who is diagnosed with lung cancer", "https://www.amc.com/shows/breaking-bad", "https://i.imgur.com/GGje0vc.jpg"),
     new Serie(2, "Orange Is the New Black", "Netflix", 6, "The series begins revolving around Piper Chapman, a woman in her thirties living in New York City who is sentenced to 15 months in Litchfield Penitentiary", "https://www.netflix.com/co/title/70242311", "https://i.imgur.com/EvKe48G.jpg"),
@@ -13,11 +12,17 @@ mostrarInformacionSeries(series1);
 promedioSeries(series1);
 function mostrarInformacionSeries(series) {
     var seriesBody = document.createElement("tbody");
+    var _loop_1 = function (se) {
+        var trElement = document.createElement("tr");
+        trElement.onclick = function (a) {
+            actualizarInformacionSerie(se.id, series1);
+        };
+        trElement.innerHTML = "\n            <th >".concat(se.id, "</th>\n            <th >").concat(se.title, "</th>\n            <th >").concat(se.network, "</th>\n            <th >").concat(se.seasons, "</th>");
+        seriesBody.appendChild(trElement);
+    };
     for (var _i = 0, series_1 = series; _i < series_1.length; _i++) {
         var se = series_1[_i];
-        var trElement = document.createElement("tr");
-        trElement.innerHTML = "\n            <th colspan=\"1\">".concat(se.id, "</td>\n            <th colspan=\"3\">").concat(se.title, "</td>\n            <th colspan=\"2\">").concat(se.network, "</td>\n            <th colspan=\"2\">").concat(se.seasons, "</td>");
-        seriesBody.appendChild(trElement); // Aquí se añade trElement a seriesBody
+        _loop_1(se);
     }
     seriesTable.appendChild(seriesBody);
 }
@@ -33,4 +38,33 @@ function promedioSeries(series) {
     var promedioLabel = document.createElement("label");
     promedioLabel.textContent = "Promedio de temporadas: ".concat(promedio.toFixed(2));
     seriesTable.appendChild(promedioLabel);
+}
+function actualizarInformacionSerie(serieId, serie) {
+    for (var _i = 0, serie_1 = serie; _i < serie_1.length; _i++) {
+        var se = serie_1[_i];
+        if (se.id === serieId) {
+            var title = document.getElementById("title1");
+            var descripcion = document.getElementById("descripcion1");
+            var image2 = document.getElementById("imagen");
+            var card = document.getElementById("card");
+            console.log(image2);
+            if (image2 !== null && image2.parentNode !== null) {
+                // Remover el elemento de imagen si existe y tiene un nodo padre
+                image2.parentNode.removeChild(image2);
+            }
+            while (title.firstChild) {
+                title.removeChild(title.firstChild);
+            }
+            while (descripcion.firstChild) {
+                descripcion.removeChild(descripcion.firstChild);
+            }
+            var image = document.createElement("img");
+            image.src = se.imageUrl;
+            image.alt = "Descripción de la imagen";
+            image.id = "imagen";
+            card.appendChild(image);
+            title.textContent = "".concat(se.title);
+            descripcion.textContent = "".concat(se.description);
+        }
+    }
 }

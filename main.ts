@@ -1,5 +1,4 @@
 import {Serie} from "./Serie.js";
-console.log(3333)
 const series1 = [
     new Serie (1,"Breaking Bad","AMC", 5,"Set and filmed in Albuquerque, New Mexico, the series tells the story of Walter White, a struggling and depressed high school chemistry teacher who is diagnosed with lung cancer" ,"https://www.amc.com/shows/breaking-bad" , "https://i.imgur.com/GGje0vc.jpg") ,
     
@@ -21,6 +20,7 @@ const series1 = [
 
   let seriesTable: HTMLElement = document.getElementById("Series")!;
 
+
   mostrarInformacionSeries(series1)
   promedioSeries(series1)
 
@@ -29,12 +29,15 @@ const series1 = [
 
     for (let se of series) {
         let trElement: HTMLElement = document.createElement("tr");
+        trElement.onclick = (a) => {
+            actualizarInformacionSerie(se.id, series1)
+        } 
         trElement.innerHTML = `
-            <th colspan="1">${se.id}</td>
-            <th colspan="3">${se.title}</td>
-            <th colspan="2">${se.network}</td>
-            <th colspan="2">${se.seasons}</td>`;
-        seriesBody.appendChild(trElement); // Aquí se añade trElement a seriesBody
+            <th >${se.id}</th>
+            <th >${se.title}</th>
+            <th >${se.network}</th>
+            <th >${se.seasons}</th>`;
+        seriesBody.appendChild(trElement); 
     }
 
     seriesTable.appendChild(seriesBody);
@@ -48,15 +51,45 @@ function promedioSeries(series: Serie[]): void {
        cant += 1;
     }
 
-
     const promedio = suma / cant;
-
-
     let promedioLabel: HTMLLabelElement = document.createElement("label");
-
-
     promedioLabel.textContent = `Promedio de temporadas: ${promedio.toFixed(2)}`;
-
-
     seriesTable.appendChild(promedioLabel);
+}
+
+function actualizarInformacionSerie(serieId:number,serie: Serie[]){
+    for (let se of serie) {
+        if(se.id === serieId){
+            let title: HTMLElement = document.getElementById("title1")!;
+            let descripcion: HTMLElement = document.getElementById("descripcion1")!;
+            let image2: HTMLElement | null = document.getElementById("imagen");
+            let card: HTMLElement = document.getElementById("card")!;
+            console.log(image2)
+
+            if (image2 !== null && image2.parentNode !== null) {
+                
+                image2.parentNode.removeChild(image2);
+            }
+            
+            while (title.firstChild) {
+                title.removeChild(title.firstChild);
+            }
+            while (descripcion.firstChild) {
+                descripcion.removeChild(descripcion.firstChild);
+            }
+
+
+
+            let image: HTMLImageElement = document.createElement("img");
+            image.src = se.imageUrl;
+            image.alt = "Descripción de la imagen";
+            image.id = "imagen";
+            card.appendChild(image);
+
+            title.textContent = `${se.title}`;
+            descripcion.textContent = `${se.description}`;
+        }  
+    }
+    
+
 }

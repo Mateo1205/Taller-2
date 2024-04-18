@@ -7,9 +7,9 @@
     <link rel="icon" href="data:,">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="module" src="./main.js"></script>    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
-        
         th {
             font-weight: bold;
             text-align: left;
@@ -24,27 +24,37 @@
             background-color: #ADD8E6;
             padding: 10px;
         }
+        a {
+            color: rgb(108, 108, 235); /* Color azul */
+            cursor: pointer; /* Cursor de puntero */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-    <h1 class="col-4">tv series</h1>
-    
+        <h1 class="col-12">TV Series</h1>
         <div class="row">
-            
-            <table class="table" id="Series" border="1">
-                <thead>
-                    <tr>
-                        <th colspan="1">ID</th>
-                        <th colspan="3">Title</th>
-                        <th colspan="2">Network</th>
-                        <th  colspan="2">Seasons</th>
-                    </tr>
-                </thead>
-            </table>
-            
-        </div> 
+            <div class="col-md-7">
+                <table class="table" id="Series" >
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Network</th>
+                            <th>Seasons</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="col-md-5">
+                <div class="card" id="card">
+                    <h2 id="title1">Titulo de la Serie</h2>
+                    <p id="descripcion1">Descripción de la serie...</p>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

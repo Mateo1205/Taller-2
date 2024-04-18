@@ -1,4 +1,7 @@
 export class Serie {
+    filter(arg0: (se: any) => boolean): Serie {
+        throw new Error("Method not implemented.");
+    }
     id: number;
     title: string;
     network: string;

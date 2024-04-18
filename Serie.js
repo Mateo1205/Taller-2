@@ -8,6 +8,9 @@ var Serie = /** @class */ (function () {
         this.website = website;
         this.imageUrl = imageUrl;
     }
+    Serie.prototype.filter = function (arg0) {
+        throw new Error("Method not implemented.");
+    };
     return Serie;
 }());
 export { Serie };
